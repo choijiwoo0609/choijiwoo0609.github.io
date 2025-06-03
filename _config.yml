@@ -1,6 +1,6 @@
-#logo_img: /assets/img/icons/golasblog_logo.svg #Absolute path to the logo. If not specified, the title will be displayed instead.
-title : PORTFOLIO
-logo_img: /assets/img/icons/simplex_logo.svg
+logo_img: /assets/img/icons/golasblog_logo.svg #Absolute path to the logo. If not specified, the title will be displayed instead.
+#title : PORTFOLIO
+#logo_img: /assets/img/icons/simplex_logo.svg
 copyright: © Golasowski 2020 #Your copyright.
 
 collections:
