@@ -1,0 +1,20 @@
+- title: Home
+  url: index.html
+  icon: assets/img/icons/simplex_logo.svg
+
+- title: Projects
+  icon: assets/img/icons/file-type-verilog.svg
+  subnav:
+    - title: Verilog
+      url: verilog.html
+    - title: STM32
+      url: stm32.html
+    - title: UART System
+      url: uart.html
+
+- title: Blog
+  url: blog.html
+  hue: "#FF8800"
+
+- title: About
+  url: about.html
