@@ -1,6 +1,8 @@
 - title: Verilog
   url: index.html
   icon: assets/img/icons/투명심볼.svg
+  hue : "#000000"        # 일반 텍스트는 검정색
+  hover_hue : "#FF0000"  # hover 시 빨간색
   subnav:
     - title : Verilog HDL
       url : veriloghdl.html
@@ -9,8 +11,11 @@
 
 - title: Preparing....
   icon: assets/img/icons/arrow_right.svg
+  hue : "#000000"
+  hover_hue : "#0000FF"  # hover 시 파란색
 
 - title: Self Introduction
   url: selfintroduction.html
   icon : assets/img/icons/selfie.svg
-  hue: "#FF8800"
+  hue: "#000000"
+  hover_hue : "#FFD700"  #hover 시 노란색
