@@ -10,7 +10,7 @@
       url : systemverilog.html
 
 - title: Preparing....
-  icon: assets/img/icons/arrow_right.svg
+  icon: assets/img/icons/user.svg
   hue : "#000000"
   hover_hue : "#0000FF"  # hover 시 파란색
 
