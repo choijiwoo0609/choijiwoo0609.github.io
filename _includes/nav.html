@@ -8,10 +8,14 @@
 
             <div class="item-controls">
                 <a href="{{ site.url }}/{{ item.url }}">
-                    {% if item.icon != nil %}
-                        <img src="{{ site.url }}/{{ item.icon }}" class="nav-icon" data-hue="{{ item.hue }}" />
-                    {% endif %}
-                        <p class="nav-title" data-hue="{{ item.hue }}">{{ item.title }}</p>
+                {% if item.icon != nil %}
+                    <img src="{{ site.url }}/{{ item.icon }}"/>
+                {% endif %}
+                {% if item.hue != nil %}
+                    <p style="color: {{ item.hue }}">{{ item.title }}</p>
+                {% else %}
+                    <p>{{ item.title }}</p>
+                {% endif%}
                 </a>
 
             {% if item.subnav %}
