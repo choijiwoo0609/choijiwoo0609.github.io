@@ -25,12 +25,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
-
-document.querySelectorAll(".button-submenu").forEach((button) => {
-  button.addEventListener("click", (e) => {
-    e.preventDefault(); // 링크 클릭 막기
-    const item = button.closest(".item");
-    item.classList.toggle("open");
-  });
-});
