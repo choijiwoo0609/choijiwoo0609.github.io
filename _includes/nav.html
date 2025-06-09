@@ -9,7 +9,7 @@
                 <a href="{{ site.url }}/{{ item.url }}">
                     {% if item.icon %}
                         <img src="{{ site.url }}/{{ item.icon }}" class="nav-icon"
-                             style="filter: brightness(0) saturate(100%) sepia(100%) hue-rotate(0deg);"
+                             data-default="{{ item.hue_rotate }}"
                              data-hover="{{ item.hover_hue }}" />
                     {% endif %}
                     <p class="nav-title"
@@ -27,6 +27,7 @@
         </li>
     {% endfor %}
 </ul>
+
 
 <!--{% if include.embedded != nil %}-->
 <!--<ul class="list">-->
