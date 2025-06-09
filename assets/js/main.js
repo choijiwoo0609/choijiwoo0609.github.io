@@ -15,13 +15,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   icons.forEach((icon) => {
-    const hoverHue = icon.dataset.hover;
+    const defaultHue = icon.dataset.default || "0"; // ← 기본 회전값
+    const hoverHue = icon.dataset.hover || "0";
+
+    // 초기 hue-rotate 값 적용
+    icon.style.filter = `brightness(0) saturate(100%) sepia(100%) hue-rotate(${defaultHue}deg)`;
 
     icon.addEventListener("mouseenter", () => {
-      icon.style.filter = `brightness(0) saturate(100%) sepia(100%) hue-rotate(${hoverHue})`;
+      icon.style.filter = `brightness(0) saturate(100%) sepia(100%) hue-rotate(${hoverHue}deg)`;
     });
     icon.addEventListener("mouseleave", () => {
-      icon.style.filter = `brightness(0) saturate(100%) sepia(100%) hue-rotate(0deg)`;
+      icon.style.filter = `brightness(0) saturate(100%) sepia(100%) hue-rotate(${defaultHue}deg)`;
     });
   });
 });
