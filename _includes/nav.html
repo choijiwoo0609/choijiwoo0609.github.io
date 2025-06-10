@@ -1,31 +1,28 @@
-{% if include.embedded != nil %}
-<ul class="list">
-{% else %}
 <ul class="list primary">
-{% endif %}
-    {% for item in include.nav %}
-        <li class="item">
-            <div class="item-controls">
-                <a href="{{ site.url }}/{{ item.url }}">
-                    {% if item.icon %}
-                        <img src="{{ site.url }}/{{ item.icon }}" class="nav-icon"
-                             data-default="{{ item.hue_rotate }}"
-                             data-hover="{{ item.hover_hue }}" />
-                    {% endif %}
-                    <p class="nav-title"
-                       style="color: {{ item.hue }}"
-                       data-hover="{{ item.hover_hue }}">{{ item.title }}</p>
-                </a>
-
-                {% if item.subnav %}
-                    <a class="button-submenu" href="#"><i class="arrow"></i></a>
+  {% for item in include.nav %}
+    <li class="item">
+      <div class="item-controls">
+        <a href="{{ site.url }}/{{ item.url }}">
+          {% if item.icon %}
+            <div class="nav-icon-container"
+                 data-icon="{{ site.url }}/{{ item.icon }}"
+                 data-default="{{ item.hue_rotate }}"
+                 data-hover="{{ item.hover_hue }}">
             </div>
-                    {% include nav.html nav=item.subnav embedded=true %}
-                {% else %}
-            </div>
-                {% endif %}
-        </li>
-    {% endfor %}
+          {% endif %}
+          <p class="nav-title"
+             style="color: {{ item.hue }}"
+             data-hover="{{ item.hover_hue }}">{{ item.title }}</p>
+        </a>
+        {% if item.subnav %}
+          <a class="button-submenu" href="#"><i class="arrow"></i></a>
+      </div>
+          {% include nav.html nav=item.subnav embedded=true %}
+        {% else %}
+      </div>
+        {% endif %}
+    </li>
+  {% endfor %}
 </ul>
 
 
