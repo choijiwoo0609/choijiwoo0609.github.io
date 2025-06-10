@@ -3,7 +3,7 @@
   icon: assets/img/icons/투명심볼.svg
   hue: "#FF0000"        # 글자 색 (일반 상태)
   hue_rotate: 0         # 아이콘 초기 색 (deg 단위 회전값)
-  hover_hue: 0          # hover 시 아이콘 색 (deg 단위 회전값)
+  hover_hue: 120          # hover 시 아이콘 색 (deg 단위 회전값)
   subnav:
     - title : Verilog HDL
       url : veriloghdl.html
