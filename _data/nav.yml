@@ -3,7 +3,7 @@
   icon: assets/img/icons/투명심볼.svg
   hue: "#FF0000"        # 글자 색 (일반 상태)
   hue_rotate: 0         # 아이콘 초기 색 (deg 단위 회전값)
-  hover_hue: 120          # hover 시 아이콘 색 (deg 단위 회전값)
+  hover_hue: 30          # hover 시 아이콘 색 (deg 단위 회전값)
   subnav:
     - title : Verilog HDL
       url : veriloghdl.html
@@ -12,13 +12,13 @@
 
 - title: Preparing....
   icon: assets/img/icons/user.svg
-  hue: "#000000"
+  hue: "#FFD700"
   hue_rotate: 0
-  hover_hue: 240        # hover 시 파란색 (240deg)
+  hover_hue: 60        # hover시, 노란색이 출력.
 
 - title: Self Introduction
   url: selfintroduction.html
   icon: assets/img/icons/selfie_2.svg
-  hue: "#FFD700"        # 글자 색 (노란색)
-  hue_rotate: 50        # 초기 노란색 hue 회전값 (대략적인 값)
-  hover_hue: 50         # hover 시에도 같은 색 (변화 없음)
+  hue: "#FFD700"        # 글자 색 (파란색)
+  hue_rotate: 0        # 초기 심볼은 (검정색)
+  hover_hue: 90         # hover시, 파란색이 출력.
