@@ -8,21 +8,30 @@
             <div class="item-controls">
                 <a href="{{ site.url }}/{{ item.url }}">
                 {% if item.icon != nil %}
-                    <img src="{{ site.url }}/{{ item.icon }}"/>
+                    <svg class="nav-icon" 
+                       data-default="{{ item.hue | default: '#000000' }}" 
+                       data-hover="{{ item.hue | default: '#FF0000' }}" 
+                       width="30" height="30" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 실제 아이콘의 내부 경로 코드 -->
+                    <g transform="translate(0,1024) scale(0.1,-0.1)" fill="currentColor" stroke="none">
+                       <path d="M...Z"></path>
+                    </g>
+                    </svg>
                 {% endif %}
                 {% if item.hue != nil %}
-                    <p style="color: {{ item.hue }}">{{ item.title }}</p>
+                    <p class="nav-title" data-hover="{{ item.hue }}" style="color: {{ item.hue }}">
+                        {{ item.title }}
+                    </p>
                 {% else %}
                     <p>{{ item.title }}</p>
-                {% endif%}
+                {% endif %}
                 </a>
 
             {% if item.subnav %}
                 <a class="button-submenu" href="#"><i class="arrow"></i></a>
             </div>
+            {% if item.subnav %}
                 {% include nav.html nav=item.subnav embedded=true %}
-            {% else %}
-            </div>
             {% endif %}
         </li>   
     {% endfor %}
