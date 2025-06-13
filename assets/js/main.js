@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // nav-title: 텍스트 호버 효과
   const titles = document.querySelectorAll(".nav-title");
-  const icons = document.querySelectorAll(".nav-icon");
-
   titles.forEach((title) => {
-    const originalColor = title.style.color;
+    // computedStyle을 사용하는 것이 더 안정적입니다.
+    const originalColor = window.getComputedStyle(title).color;
     const hoverColor = title.dataset.hover;
-
+  
     title.addEventListener("mouseenter", () => {
       title.style.color = hoverColor;
     });
@@ -13,19 +13,21 @@ document.addEventListener("DOMContentLoaded", () => {
       title.style.color = originalColor;
     });
   });
-
+  
+  // nav-icon: 인라인 SVG 호버 효과 (fill 속성 변경)
+  const icons = document.querySelectorAll(".nav-icon");
   icons.forEach((icon) => {
-    const defaultHue = icon.dataset.default || "0"; // ← 기본 회전값
-    const hoverHue = icon.dataset.hover || "0";
-
-    // 초기 hue-rotate 값 적용
-    icon.style.filter = brightness(0) saturate(100%) sepia(100%) hue-rotate(${defaultHue}deg);
-
+    const defaultColor = icon.dataset.default || "#000000";
+    const hoverColor = icon.dataset.hover || defaultColor;
+    
+    // 초기 fill 적용
+    icon.style.fill = defaultColor;
+  
     icon.addEventListener("mouseenter", () => {
-      icon.style.filter = brightness(0) saturate(100%) sepia(100%) hue-rotate(${hoverHue}deg);
+      icon.style.fill = hoverColor;
     });
     icon.addEventListener("mouseleave", () => {
-      icon.style.filter = brightness(0) saturate(100%) sepia(100%) hue-rotate(${defaultHue}deg);
+      icon.style.fill = defaultColor;
     });
   });
 });
