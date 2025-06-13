@@ -3,10 +3,10 @@
   icon: assets/img/icons/투명심볼.svg
   hue: "#C02717"        # 글자 색 (일반 상태)
   subnav:
-    - title : Verilog HDL
-      url : veriloghdl.html
-    - title : System Verilog
-      url : systemverilog.html
+    - title: Verilog HDL
+      url: veriloghdl.html
+    - title: System Verilog
+      url: systemverilog.html
 
 - title: Preparing....
   icon: assets/img/icons/user.svg
@@ -16,4 +16,3 @@
   url: selfintroduction.html
   icon: assets/img/icons/selfie_2.svg
   hue: "#2E86AB"        # 글자 색 (파란색)
- 
