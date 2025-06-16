@@ -13,7 +13,14 @@
     - title: System Verilog
       url: systemverilog.html
 
-- title: Self Introduction
+- title: Others
   url: selfintroduction.html
   icon: assets/img/icons/selfie_2.svg
   hue: "#2E86AB"        # 글자 색 (파란색)
+  subnav:
+    - title: Blog
+      url: blog.html
+    - title: Github
+      url: github.html
+    - title: Self Configuration
+      url: selfconfiguration.html
