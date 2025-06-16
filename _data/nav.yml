@@ -14,7 +14,6 @@
       url: systemverilog.html
 
 - title: Others
-  url: selfintroduction.html
   icon: assets/img/icons/selfie_2.svg
   hue: "#2E86AB"        # 글자 색 (파란색)
   subnav:
@@ -22,5 +21,5 @@
       url: blog.html
     - title: Github
       url: github.html
-    - title: Self Configuration
-      url: selfconfiguration.html
+    - title: Self Introduction
+      url: selfintroduction.html
