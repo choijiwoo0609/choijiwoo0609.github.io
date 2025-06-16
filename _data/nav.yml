@@ -1,16 +1,17 @@
-- title: Verilog
+- title: C Programming
   url: index.html
-  icon: assets/img/icons/투명심볼.svg
+  icon: assets/img/icons/cpp.svg
   hue: "#C02717"        # 글자 색 (일반 상태)
+
+
+- title: Verilog
+  icon: assets/img/icons/투명심볼.svg
+  hue: "#E59500"
   subnav:
     - title: Verilog HDL
       url: veriloghdl.html
     - title: System Verilog
       url: systemverilog.html
-
-- title: C Programming
-  icon: golas.blog/assets/img/icons/cpp.svg
-  hue: "#E59500"
 
 - title: Self Introduction
   url: selfintroduction.html
