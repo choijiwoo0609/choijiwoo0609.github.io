@@ -8,21 +8,10 @@
       <div class="item-controls">
         <a href="{{ site.url }}/{{ item.url }}">
           {% if item.icon != nil %}
-            <!-- 인라인 SVG: 내부 그룹의 fill 속성은 currentColor로 설정 -->
-            <svg class="nav-icon" 
-                 data-default="#000000" 
-                 data-hover="{{ item.hue | default: '#FF0000' }}" 
-                 width="30" height="30" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-              <!-- SVG 내부 코드 예시 -->
-              <g transform="translate(0,1024) scale(0.1,-0.1)" fill="currentColor" stroke="none">
-                <path d="M...Z"></path>
-              </g>
-            </svg>
+            <img src="{{ site.url }}/{{ item.icon }}" />
           {% endif %}
           {% if item.hue != nil %}
-            <p class="nav-title" data-hover="{{ item.hue }}" style="color: {{ item.hue }}">
-              {{ item.title }}
-            </p>
+            <p style="color: {{ item.hue }}">{{ item.title }}</p>
           {% else %}
             <p>{{ item.title }}</p>
           {% endif %}
@@ -30,7 +19,7 @@
 
         {% if item.subnav %}
           <a class="button-submenu" href="#"><i class="arrow"></i></a>
-      </div>
+        </div>
           {% include nav.html nav=item.subnav embedded=true %}
         {% else %}
       </div>
