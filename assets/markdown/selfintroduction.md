@@ -1,11 +1,3 @@
----
-layout: default
-title: "Self Introduction"
-permalink: /selfintroduction/
----
-
-
-
 # 최지우 |
 
 <aside>
