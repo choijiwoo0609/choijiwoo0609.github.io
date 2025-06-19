@@ -11,7 +11,7 @@ permalink: /selfintroduction/
 포트폴리오는 본인의 개성을 표현하는 만큼 다양한 사례를 확인하시고, 다채롭게 꾸며보시기 바랍니다.
 </aside>
 
-![내 프로필](assets/img/icons/pepe.png)
+![내 프로필](choijiwoo0609.github.io/assets/img/icons/pepe.png)
 
 ### IT💻와 생산성💡을 좋아하는 콘텐츠 마케터 전시진입니다. 
 누구에게나 좋은 서비스를 모두에게 알리기 위해 콘텐츠를 제작합니다.
