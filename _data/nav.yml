@@ -20,7 +20,7 @@
   subnav:
     - title: Blog
       url: blog.html
-    - title: Github
-      url: github.html
+    - title: presentation
+      url: gemini.html
     - title: Self Introduction
       url: selfintroduction/
