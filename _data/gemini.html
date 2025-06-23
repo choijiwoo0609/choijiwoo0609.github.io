@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폰 노이만 병목 현상 발표</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent scroll for presentation */
+        }
+        .presentation-container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 960px; /* Adjusted for better presentation view */
+            height: 720px; /* Fixed height for consistent slide size */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+        .slide {
+            width: 100%;
+            height: 100%;
+            flex-shrink: 0;
+            padding: 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slide-content {
+            max-width: 800px;
+            text-align: center;
+        }
+        .slide-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .slide-content h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+        }
+        .slide-content p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .slide-content ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .slide-content ul li {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .slide-content ul li::before {
+            content: '•';
+            color: #3b82f6; /* Tailwind blue-500 */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+        }
+        .slide-content .highlight {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .nav-buttons {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nav-button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+        .nav-button:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+        .nav-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+        }
+        .nav-button:disabled {
+            background-color: #a7a7a7;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .slide-indicator {
+            position: absolute;
+            bottom: 60px;
+            display: flex;
+            gap: 8px;
+        }
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #cbd5e1; /* Tailwind slate-300 */
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        .indicator-dot.active {
+            background-color: #3b82f6; /* Tailwind blue-500 */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .presentation-container {
+                width: 95%;
+                height: 600px; /* Adjust height for smaller screens */
+                padding: 20px;
+            }
+            .slide {
+                padding: 20px;
+            }
+            .slide-content h2 {
+                font-size: 2rem;
+            }
+            .slide-content h3 {
+                font-size: 1.5rem;
+            }
+            .slide-content p, .slide-content ul li {
+                font-size: 1rem;
+            }
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .presentation-container {
+                height: 500px; /* Further adjust height */
+            }
+            .slide {
+                padding: 15px;
+            }
+            .slide-content h2 {
+                font-size: 1.8rem;
+            }
+            .slide-content h3 {
+                font-size: 1.3rem;
+            }
+            .slide-content p, .slide-content ul li {
+                font-size: 0.9rem;
+            }
+            .nav-buttons {
+                bottom: 10px;
+                gap: 10px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+            .slide-indicator {
+                bottom: 45px;
+                gap: 6px;
+            }
+            .indicator-dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-content">
+                <h2 class="text-blue-600">폰 노이만 병목 현상</h2>
+                <p class="text-xl font-medium text-gray-700 mt-4">(Von Neumann Bottleneck)</p>
+                <p class="text-lg text-gray-500 mt-2">현대 컴퓨터의 숨겨진 병목을 파헤치다</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: 발표 목표 -->
+        <div class="slide" id="slide-2">
+            <div class="slide-content">
+                <h2 class="text-blue-600">발표 목표</h2>
+                <ul class="text-gray-700 text-lg mt-8 space-y-3">
+                    <li><span class="highlight">폰 노이만 구조</span>의 기본 이해</li>
+                    <li><span class="highlight">폰 노이만 병목 현상</span>의 개념과 원인 파악</li>
+                    <li>이 병목 현상이 현대 컴퓨터에 미치는 <span class="highlight">영향</span> 인식</li>
+                    <li>극복을 위한 <span class="highlight">대안 및 미래 기술</span> 소개</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: 1. 폰 노이만 구조란? -->
+        <div class="slide" id="slide-3">
+            <div class="slide-content">
+                <h2 class="text-blue-600">1. 폰 노이만 구조란?</h2>
+                <h3 class="mt-8">존 폰 노이만 (John von Neumann)</h3>
+                <p class="text-base text-gray-600 mb-6">20세기 최고의 수학자, 현대 컴퓨터 설계의 아버지</p>
+                <h3>핵심 원리</h3>
+                <ul class="text-gray-700 text-lg mt-4 space-y-2">
+                    <li><span class="highlight">단일 주소 공간</span>: 명령어와 데이터가 동일 메모리에 저장</li>
+                    <li><span class="highlight">순차적 실행</span>: CPU가 명령어를 하나씩 가져와 실행</li>
+                    <li><span class="highlight">중앙 처리 장치 (CPU)</span>: 연산 및 제어</li>
+                    <li><span class="highlight">메모리 (Memory)</span>: 데이터 및 명령어 저장</li>
+                    <li><span class="highlight">입력/출력 장치 (I/O Devices)</span>: 외부 통신</li>
+                </ul>
+                <p class="text-gray-600 text-base mt-6">범용 컴퓨터 개발에 기여, 오늘날 대부분의 컴퓨터 기반</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: 2. 폰 노이만 병목 현상이란? -->
+        <div class="slide" id="slide-4">
+            <div class="slide-content">
+                <h2 class="text-blue-600">2. 폰 노이만 병목 현상이란?</h2>
+                <h3 class="mt-8">정의</h3>
+                <p class="text-lg text-gray-700 mb-6">CPU 처리 속도와 메모리(메인 메모리) 데이터 접근 속도 간의 <span class="highlight">현저한 차이</span>로 인한 성능 저하</p>
+                <h3>비유</h3>
+                <p class="text-lg text-gray-700 mb-6">고속도로 톨게이트 정체 (CPU는 빠르지만, 데이터 가져오는 속도가 느림)</p>
+                <h3>발생 원인</h3>
+                <ul class="text-gray-700 text-lg mt-4 space-y-2">
+                    <li><span class="highlight">CPU 속도의 비약적 발전</span> vs. <span class="highlight">메모리 속도의 상대적 정체</span></li>
+                    <li>데이터 및 명령어 이동의 <span class="highlight">병렬성 부족</span></li>
+                    <li><span class="highlight">단일 버스 사용</span> (데이터-명령어 동시 전송 불가)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: 3. 폰 노이만 병목 현상의 영향 -->
+        <div class="slide" id="slide-5">
+            <div class="slide-content">
+                <h2 class="text-blue-600">3. 폰 노이만 병목 현상의 영향</h2>
+                <ul class="text-gray-700 text-lg mt-8 space-y-3">
+                    <li><span class="highlight">성능 저하</span>: CPU 유휴 상태 발생 (데이터 대기)</li>
+                    <li><span class="highlight">전력 소모 증가</span>: 불필요한 메모리 접근</li>
+                    <li><span class="highlight">열 발생 증가</span>: 데이터 전송 과정</li>
+                    <li><span class="highlight">확장성 제한</span>: CPU 코어 증가 대비 성능 향상 제한</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6: 4. 극복을 위한 노력 및 대안 - 기존 기술 -->
+        <div class="slide" id="slide-6">
+            <div class="slide-content">
+                <h2 class="text-blue-600">4. 극복 노력 및 대안</h2>
+                <h3 class="mt-8">기존 기술을 통한 완화</h3>
+                <ul class="text-gray-700 text-lg mt-4 space-y-3">
+                    <li><span class="highlight">캐시 메모리 (Cache Memory)</span>
+                        <ul>
+                            <li>CPU와 메인 메모리 사이의 빠르고 작은 메모리</li>
+                            <li>자주 쓰는 데이터 미리 저장 (지역성)</li>
+                            <li>L1, L2, L3 등 계층적 구조</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">병렬 처리 (Parallel Processing)</span>
+                        <ul>
+                            <li><span class="font-semibold">멀티코어 CPU</span>: 여러 코어 동시 작업</li>
+                            <li><span class="font-semibold">GPU (Graphics Processing Unit)</span>: 대량 데이터 동시 처리 강점</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 7: 4. 극복을 위한 노력 및 대안 - 미래 아키텍처 -->
+        <div class="slide" id="slide-7">
+            <div class="slide-content">
+                <h2 class="text-blue-600">4. 극복 노력 및 대안</h2>
+                <h3 class="mt-8">새로운 아키텍처 연구 (미래 기술)</h3>
+                <ul class="text-gray-700 text-lg mt-4 space-y-3">
+                    <li><span class="highlight">인메모리 컴퓨팅 (In-Memory Computing)</span>
+                        <ul>
+                            <li>데이터를 메모리에 상주시켜 디스크 접근 최소화</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">프로세서 인 메모리 (Processing In Memory, PIM)</span>
+                        <ul>
+                            <li>메모리 내부에 연산 로직 통합 (데이터 이동 없이 연산)</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">뉴로모픽 컴퓨팅 (Neuromorphic Computing)</span>
+                        <ul>
+                            <li>뇌 모방, 병렬성 및 메모리-연산 통합</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">광학 컴퓨팅 (Optical Computing)</span>
+                        <ul>
+                            <li>전자가 아닌 빛 이용, 속도 및 전력 효율 향상 시도</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: 5. 결론 및 요약 -->
+        <div class="slide" id="slide-8">
+            <div class="slide-content">
+                <h2 class="text-blue-600">5. 결론 및 요약</h2>
+                <ul class="text-gray-700 text-lg mt-8 space-y-3">
+                    <li>폰 노이만 병목은 현대 컴퓨터 성능 향상의 <span class="highlight">주요 걸림돌</span></li>
+                    <li><span class="highlight">캐시, 멀티코어, GPU</span> 등 기존 기술로 완화 노력</li>
+                    <li><span class="highlight">PIM, 뉴로모픽</span> 등 새로운 아키텍처로 <span class="highlight">근본적 해결</span> 모색 중</li>
+                    <li>CPU-메모리 간극을 줄이기 위한 <span class="highlight">연구는 계속될 것</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9: Q&A -->
+        <div class="slide" id="slide-9">
+            <div class="slide-content">
+                <h2 class="text-blue-600">Q&A</h2>
+                <p class="text-xl font-medium text-gray-700 mt-8">궁금한 점이 있으시면 편하게 질문해주세요.</p>
+                <p class="text-lg text-gray-500 mt-4">경청해주셔서 감사합니다!</p>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-button" disabled>이전</button>
+            <button id="nextBtn" class="nav-button">다음</button>
+        </div>
+
+        <!-- Slide Indicator Dots -->
+        <div class="slide-indicator" id="slideIndicators">
+            <!-- Dots will be generated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideIndicators = document.getElementById('slideIndicators');
+        let currentSlide = 0;
+
+        // Function to update slide visibility and button states
+        function updateSlide() {
+            // Remove 'active' class from all slides
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+            });
+
+            // Add 'active' class to the current slide
+            slides[currentSlide].classList.add('active');
+
+            // Update button states
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+
+            // Update indicator dots
+            updateIndicators();
+        }
+
+        // Function to create and update indicator dots
+        function updateIndicators() {
+            slideIndicators.innerHTML = ''; // Clear existing dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('indicator-dot');
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                }
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateSlide();
+                });
+                slideIndicators.appendChild(dot);
+            });
+        }
+
+        // Event listeners for navigation buttons
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        });
+
+        // Initialize the presentation on window load
+        window.onload = () => {
+            updateSlide(); // Show the first slide
+        };
+    </script>
+</body>
+</html>
