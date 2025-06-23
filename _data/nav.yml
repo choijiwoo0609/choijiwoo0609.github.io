@@ -21,6 +21,6 @@
     - title: Blog
       url: blog.html
     - title: presentation
-      url: gemini.html
+      url: _data/gemini.html
     - title: Self Introduction
       url: selfintroduction/
